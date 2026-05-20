@@ -7,7 +7,7 @@ from transformers import (
     BitsAndBytesConfig,
 )
 from peft import LoraConfig
-from trl import SFTTrainer
+from trl import SFTTrainer, SFTConfig
 
 
 model_name = "meta-llama/Llama-3.2-3B"
@@ -28,8 +28,15 @@ model = AutoModelForCausalLM.from_pretrained(
     device_map="auto",
 )
 
+# 알파카 데이터셋
 dataset = load_dataset("tatsu-lab/alpaca", split="train[:1000]")
 
+# # 자율주행 데이터셋
+# dataset = load_dataset(
+#     "json",
+#     data_files="data/auto-drive-data.json",
+#     split="train"
+# )
 
 def formatting_func(example):
     if example["input"]:
@@ -66,12 +73,13 @@ peft_config = LoraConfig(
     ],
 )
 
-training_args = TrainingArguments(
+training_args = SFTConfig(
     output_dir="./results",
     per_device_train_batch_size=1,
     gradient_accumulation_steps=8,
-    num_train_epochs=1,
-    learning_rate=2e-4,
+    num_train_epochs=3,
+    learning_rate=2e-5,
+    max_length=2048,
 
     fp16=False,
     bf16=True,

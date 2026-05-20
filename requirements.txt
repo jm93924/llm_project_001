@@ -1,0 +1,10 @@
+transformers
+datasets
+accelerate
+peft
+trl
+bitsandbytes
+sentencepiece
+protobuf
+tensorboard
+huggingface_hub

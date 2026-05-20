@@ -2,8 +2,9 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 from peft import PeftModel
 
+
 base_model = "meta-llama/Llama-3.2-3B"
-adapter_path = "./llama32-3b-alpaca-lora"
+adapter_path = "./llama32-3b-auto-drive-lora"
 
 tokenizer = AutoTokenizer.from_pretrained(adapter_path)
 
@@ -25,12 +26,16 @@ model.eval()
 
 while True:
     instruction = input("\nInstruction: ")
+    user_input = input("Input: ")
 
     if instruction.lower() in ["exit", "quit", "q"]:
         break
 
     prompt = f"""### Instruction:
 {instruction}
+
+### Input:
+{user_input}
 
 ### Response:
 """
@@ -48,4 +53,4 @@ while True:
         )
 
     answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    print(answer)
+    print(answer.split("### Response:")[-1].strip())

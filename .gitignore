@@ -1,4 +1,5 @@
 results/
+results_phase2/
 runs/
 __pycache__/
 *.pyc
