@@ -72,9 +72,9 @@ peft_config = LoraConfig(
 
 training_args = SFTConfig(
     output_dir="./results",
-    per_device_train_batch_size=1,
-    gradient_accumulation_steps=8,
-    num_train_epochs=3,
+    per_device_train_batch_size=4,
+    gradient_accumulation_steps=2,
+    num_train_epochs=1,
     learning_rate=2e-5,
     max_length=2048,
 

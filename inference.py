@@ -4,7 +4,7 @@ from peft import PeftModel
 
 
 base_model = "meta-llama/Llama-3.2-3B"
-adapter_path = "./llama32-3b-auto-drive-lora"
+adapter_path = "./llama32-3b-koalpaca-lora"
 
 tokenizer = AutoTokenizer.from_pretrained(adapter_path)
 
